@@ -2,6 +2,8 @@
 # Created by https://www.gitignore.io/api/react,macos,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=react,macos,visualstudiocode
 
+# Custom
+release-builds
 
 ### macOS ###
 # General

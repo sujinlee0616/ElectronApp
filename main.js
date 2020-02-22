@@ -2,7 +2,10 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const {app, BrowserWindow,Menu} = electron;
+const {app, BrowserWindow,Menu,ipcMain} = electron;
+
+// SET ENV
+process.env.NODE_ENV = 'production';
 
 let mainWindow;
 let addWindow;
@@ -60,7 +63,14 @@ function createAddWindow(){
 
 }
 
-// Create menu template
+// Catch item:add 
+ipcMain.on('item:add',function(e, item){
+    //console.log(item); // add item window에서 입력한 값이 터미널에 로그 찍어서 확인
+    mainWindow.webContents.send('item:add',item);
+    addWindow.close(); 
+});
+
+// Create menu template 메뉴 생성 
 const mainMenuTemplate = [
     {
         label:'File',
@@ -72,7 +82,10 @@ const mainMenuTemplate = [
                 }
             },
             {
-                label: 'Clear Items'
+                label: 'Clear All Items',
+                click(){
+                    mainWindow.webContents.send('item:clear');
+                }
             },
             {
                 label: 'Quit',
@@ -87,7 +100,7 @@ const mainMenuTemplate = [
 
 // If mac, add emplty object to menu
 if(process.platform == 'darwin'){
-    mainMenuTemplate.unshift({label: ' '});
+    mainMenuTemplate.unshift({label: ''});
 }
 
 // Add developer tools item if not in production

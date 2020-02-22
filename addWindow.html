@@ -2,28 +2,31 @@
 <html lang="en">
 <head>
      <title>Add Shopping List Item</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    <form>
-        <div>
-            <label>Enter Item</label>
-            <input type="text" id="item" autofocus>
-        </div>
-        <button type="submit">Add Item</button>
-    </form>
+    <div class="container">
+        <form>
+            <div>
+                <label>Enter Item</label>
+                <input type="text" id="item" autofocus>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Add Item</button>
+        </form>
+    </div>
 
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
-        // ipcRendere: main 프로세스로 메시지를 전달할 수 있고, 응답을 받을 수 있다.
+        // ipcRendere: main 프로세스로 메시지를 전달할 수 있고, 응답을 받을 수 있다. - Socket 같은 것.
 
         const form = document.querySelector('form');
         form.addEventListener('submit',submitForm);
 
         function submitForm(e){
             e.preventDefault();
-            console.log(123);
-
+            const item = document.querySelector('#item').value; // #item의 value값 저장 
+            ipcRenderer.send('item:add',item); // Socket과 비슷하게 보냄 
         }
     </script>
 </body>
