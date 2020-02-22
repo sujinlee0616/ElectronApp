@@ -1,0 +1,23 @@
+{
+  "name": "electronapp",
+  "version": "1.0.0",
+  "description": "Shopping list desktop app",
+  "main": "main.js",
+  "dependencies": {
+    "electron": "^8.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sujinlee0616/ElectronApp.git"
+  },
+  "author": "Sujin Lee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sujinlee0616/ElectronApp/issues"
+  },
+  "homepage": "https://github.com/sujinlee0616/ElectronApp#readme"
+}
