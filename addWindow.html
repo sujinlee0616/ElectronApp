@@ -15,6 +15,7 @@
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
+        // ipcRendere: main 프로세스로 메시지를 전달할 수 있고, 응답을 받을 수 있다.
 
         const form = document.querySelector('form');
         form.addEventListener('submit',submitForm);
@@ -27,3 +28,11 @@
     </script>
 </body>
 </html>
+
+<!-- 
+    Electron은 1) main, 2) renderer 두 개의 프로세스에 의해 동작함.
+    애플리케이션 창은 main 프로세스가 실행되는 main.js 파일 속 BrowserWindow 라는 모듈에 의해 만들어진다. 
+    즉, BrowserWindow 모듈에 의해 생성된 객체 win 이 renderer 프로세스를 생성. 
+    이 renderer 프로세스는 HTML로 코딩돼있고, CSS, JavaScript, 이미지 등을 불러옴으로서 창이 보여지게 된다. 
+ -->
+

@@ -10,7 +10,13 @@ let addWindow;
 // Listen for app to be ready
 app.on('ready', function(){
     // Create new window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow(
+        {
+            webPreferences: {
+                nodeIntegration: true
+            }
+        }
+    );
     // Load html into window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'mainWindow.html'),
@@ -34,6 +40,9 @@ app.on('ready', function(){
 function createAddWindow(){
     // Create new window
     addWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true
+        },
         width: 300,
         height: 200,
         title: 'Add Shopping List Item'
@@ -79,4 +88,24 @@ const mainMenuTemplate = [
 // If mac, add emplty object to menu
 if(process.platform == 'darwin'){
     mainMenuTemplate.unshift({label: ' '});
+}
+
+// Add developer tools item if not in production
+if(process.env.NODE_ENV !== 'production'){
+    mainMenuTemplate.push({
+        label: 'Developer Tools',
+        submenu: [
+            {
+                label: 'Toggle DevTools',
+                accelerator: process.platform == 'darwin' ? 'Command+I' : 'Ctrl+I',
+                click(item, focusedWindow){
+                    focusedWindow.toggleDevTools();
+                }
+            },
+            {
+                label: 'Reload'
+            }
+        ]
+    })
+
 }
